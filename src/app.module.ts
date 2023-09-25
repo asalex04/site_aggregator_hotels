@@ -1,16 +1,24 @@
 import { Module } from '@nestjs/common';
 import {ConfigModule} from "@nestjs/config";
-import { DatabaseModule } from './database/database.module';
 import { UsersModule } from './users/users.module';
 import { HotelsModule } from './hotels/hotels.module';
 import { ReservationsModule } from './reservations/reservations.module';
 import { SupportChatModule } from './support_chat/support_chat.module';
-import { MongooseModule } from "@nestjs/mongoose";
+import {AuthModule} from "./auth/auth.module";
+import {TypeOrmModule} from "@nestjs/typeorm";
+import {MongooseModule} from "@nestjs/mongoose";
 
 @Module({
   imports: [ConfigModule.forRoot(),
-    MongooseModule.forRoot(process.env.MONGO_CONNECTION),
-    DatabaseModule,
+    MongooseModule.forRoot('mongodb://root:password@db/hotels?authSource=admin'),
+    // TypeOrmModule.forRoot({
+    //   type: 'mongodb',
+    //   url: 'mongodb://root:password@db/hotels?authSource=admin',
+    //   port: 27017,
+    //   autoLoadEntities: true,
+    //   synchronize: true,
+    // }),
+    AuthModule,
     UsersModule,
     HotelsModule,
     ReservationsModule,
