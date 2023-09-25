@@ -6,18 +6,16 @@ import { ReservationsModule } from './reservations/reservations.module';
 import { SupportChatModule } from './support_chat/support_chat.module';
 import {AuthModule} from "./auth/auth.module";
 import {TypeOrmModule} from "@nestjs/typeorm";
-import {MongooseModule} from "@nestjs/mongoose";
 
 @Module({
   imports: [ConfigModule.forRoot(),
-    MongooseModule.forRoot('mongodb://root:password@db/hotels?authSource=admin'),
-    // TypeOrmModule.forRoot({
-    //   type: 'mongodb',
-    //   url: 'mongodb://root:password@db/hotels?authSource=admin',
-    //   port: 27017,
-    //   autoLoadEntities: true,
-    //   synchronize: true,
-    // }),
+    TypeOrmModule.forRoot({
+      type: 'mongodb',
+      url: 'mongodb://root:password@db/hotels?authSource=admin',
+      port: 27017,
+      autoLoadEntities: true,
+      synchronize: true,
+    }),
     AuthModule,
     UsersModule,
     HotelsModule,
